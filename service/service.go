@@ -20,7 +20,7 @@ func (bs *BookService) Read(id string) (*repositories.Book, error) {
 func (bs *BookService) Delete(id string) error {
 	return bs.r.Delete(id)
 }
-func (bs *BookService) Listing() ([]*repositories.Book, error) {
+func (bs *BookService) Listing() ([]repositories.Book, error) {
 	return bs.r.Listing()
 }
 func New(repo repositories.Repository) *BookService {

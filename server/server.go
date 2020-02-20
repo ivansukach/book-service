@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"github.com/ivansukach/book-service/protocol"
 	"github.com/ivansukach/book-service/repositories"
 	"github.com/ivansukach/book-service/service"
@@ -86,22 +87,27 @@ func (s *Server) Get(ctx context.Context, req *protocol.GetRequest) (*protocol.G
 }
 func (s *Server) Listing(ctx context.Context, req *protocol.EmptyRequest) (*protocol.ListingResponse, error) {
 	books, err := s.bs.Listing()
-	var resp []*protocol.Book
-	for i := range books {
-		resp[i].Id = books[i].Id
-		resp[i].Title = books[i].Title
-		resp[i].Author = books[i].Author
-		resp[i].Genre = books[i].Genre
-		resp[i].Edition = books[i].Edition
-		resp[i].NumberOfPages = books[i].NumberOfPages
-		resp[i].Year = books[i].Year
-		resp[i].Amount = books[i].Amount
-		resp[i].IsPopular = books[i].IsPopular
-		resp[i].InStock = books[i].InStock
-	}
 	if err != nil {
 		log.Error(err)
 		return nil, err
+	}
+	resp := make([]*protocol.Book, 0, 10)
+	fmt.Println("ALL BOOKS")
+	fmt.Println(books)
+	for i := range books {
+		fmt.Println("book №", i, " ", books[i].Id)
+		temp := new(protocol.Book)
+		temp.Id = books[i].Id
+		temp.Title = books[i].Title
+		temp.Author = books[i].Author
+		temp.Genre = books[i].Genre
+		temp.Edition = books[i].Edition
+		temp.NumberOfPages = books[i].NumberOfPages
+		temp.Year = books[i].Year
+		temp.Amount = books[i].Amount
+		temp.IsPopular = books[i].IsPopular
+		temp.InStock = books[i].InStock
+		resp = append(resp, temp)
 	}
 	return &protocol.ListingResponse{Books: resp}, nil
 }

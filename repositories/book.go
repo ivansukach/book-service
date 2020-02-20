@@ -17,5 +17,5 @@ type Repository interface {
 	Read(id string) (*Book, error)
 	Update(book *Book) error
 	Delete(id string) error
-	Listing() ([]*Book, error)
+	Listing() ([]Book, error)
 }
