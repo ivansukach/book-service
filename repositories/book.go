@@ -1,16 +1,16 @@
 package repositories
 
 type Book struct {
-	Id            string
-	Title         string
-	Author        string
-	Genre         string
-	Edition       string
-	NumberOfPages int32
-	Year          int32
-	Amount        int32
-	IsPopular     bool
-	InStock       bool
+	Id            string `db:"id"`
+	Title         string `db:"title"`
+	Author        string `db:"author"`
+	Genre         string `db:"genre"`
+	Edition       string `db:"edition"`
+	NumberOfPages int32  `db:"numberofpages"`
+	Year          int32  `db:"year"`
+	Amount        int32  `db:"amount"`
+	IsPopular     bool   `db:"ispopular"`
+	InStock       bool   `db:"instock"`
 }
 type Repository interface {
 	Create(book *Book) error

@@ -19,7 +19,7 @@ func TestUpdate(t *testing.T) {
 
 	client := protocol.NewBookServiceClient(conn)
 	book := new(protocol.Book)
-	book.Id = "book1582205413"
+	book.Id = "book1582286213"
 	book.Title = "World and Piece"
 	book.Author = "Lev Tolstoy"
 	book.Genre = "Romance"
@@ -29,6 +29,7 @@ func TestUpdate(t *testing.T) {
 	book.Edition = "Moscow-1996"
 	book.IsPopular = false
 	book.InStock = false
+	//_, err = client.Update(context.Background(), &protocol.UpdateRequest{Book: book})
 	_, err = client.Update(context.Background(), &protocol.UpdateRequest{Book: book})
 	if err != nil {
 		log.Error(err)
