@@ -19,7 +19,7 @@ func TestUpdate(t *testing.T) {
 
 	client := protocol.NewBookServiceClient(conn)
 	book := new(protocol.Book)
-	book.Id = "book1582286213"
+	book.Id = "book1582797544"
 	book.Title = "World and Piece"
 	book.Author = "Lev Tolstoy"
 	book.Genre = "Romance"

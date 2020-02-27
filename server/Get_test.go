@@ -17,7 +17,7 @@ func TestGet(t *testing.T) {
 	}
 	defer conn.Close()
 	client := protocol.NewBookServiceClient(conn)
-	id := "book1582205413"
+	id := "book1582796654"
 	response, err := client.Get(context.Background(), &protocol.GetRequest{Id: id})
 	if err != nil {
 		log.Error(err)

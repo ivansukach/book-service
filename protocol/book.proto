@@ -31,19 +31,12 @@ message GetRequest{
 message GetResponse{
     Book book = 1;
 }
-message EmptyRequest{
-
-}
-message ListingResponse{
-    repeated Book books = 1;
-}
 
 service BookService{
     rpc Add(AddRequest) returns(EmptyResponse);
     rpc Delete(DeleteRequest) returns(EmptyResponse);
     rpc Update(UpdateRequest) returns(EmptyResponse);
     rpc Get(GetRequest) returns(GetResponse);
-    rpc Listing(EmptyRequest) returns(ListingResponse);
 
 }
 

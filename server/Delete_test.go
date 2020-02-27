@@ -17,7 +17,7 @@ func TestDelete(t *testing.T) {
 	}
 	defer conn.Close()
 	client := protocol.NewBookServiceClient(conn)
-	id := "book1582205413"
+	id := "book1582796654"
 	_, err = client.Delete(context.Background(), &protocol.DeleteRequest{Id: id})
 	if err != nil {
 		log.Error(err)

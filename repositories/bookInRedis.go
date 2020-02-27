@@ -6,6 +6,14 @@ import (
 	"log"
 )
 
+func New(client *redis.Client) Repository {
+	return &bookRepository{client: client}
+}
+
+type bookRepository struct {
+	client *redis.Client
+}
+
 func NewRedisClient() *redis.Client {
 	client := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
@@ -14,20 +22,33 @@ func NewRedisClient() *redis.Client {
 	})
 	return client
 }
-func Set(book *Book, client *redis.Client) error {
+func (br *bookRepository) Create(book *Book) error {
+	str, err := json.Marshal(book)
+	if err != nil {
+		return err
+	}
+	return br.client.Set(book.Id, str, 0).Err()
+
+}
+func (br *bookRepository) Read(id string) (*Book, error) {
+	str, err := br.client.Get(id).Result()
+	book := Book{}
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal([]byte(str), &book)
+	return &book, err
+}
+func (br *bookRepository) Update(book *Book) error {
 	str, err := json.Marshal(book)
 	if err != nil {
 		return err
 	}
 	log.Println(str)
-	return client.Set(book.Id, str, 0).Err()
-
+	return br.client.Set(book.Id, str, 0).Err()
 }
-func Get(id string, client *redis.Client) (book *Book, err error) {
-	str, err := client.Get(id).Result()
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal([]byte(str), book)
+
+func (br *bookRepository) Delete(id string) (err error) {
+	_, err = br.client.Del(id).Result()
 	return
 }
