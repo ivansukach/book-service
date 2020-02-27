@@ -38,7 +38,7 @@ func (br *bookRepository) Delete(id string) error {
 	return err
 }
 func (br *bookRepository) Listing() ([]Book, error) {
-	rows, err := br.db.Queryx("SELECT Id, Title, Author, Genre, Edition, NumberOfPages, Year, Amount, IsPopular, InStock FROM book")
+	rows, err := br.db.Queryx("SELECT Id, Title, Author, Genre, Edition, NumberOfPages, Year, Amount, IsPopular, InStock FROM book") //SELECT *?
 	if err != nil {
 		log.Warning(err)
 		return nil, err
